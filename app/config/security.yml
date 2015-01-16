@@ -3,24 +3,35 @@
 security:
     # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
+        FOS\UserBundle\Model\UserInterface: sha512
 
     # http://symfony.com/doc/current/book/security.html#hierarchical-roles
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
         in_memory:
-            memory:
-                users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+            memory: ~
 
     # the main part of the security, where you can set up firewalls
     # for specific sections of your app
     firewalls:
+        main:
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+                login_path: /app/login
+                default_target_path: /app
+            logout:
+                path:   /logout
+                target: /app/login
+            anonymous:    true
+
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
@@ -37,7 +48,7 @@ security:
             # are route names and that they are specified in the AcmeDemoBundle
             form_login:
                 check_path: _demo_security_check
-                login_path: _demo_login
+                login_path: _demo_loginutf8
             logout:
                 path:   _demo_logout
                 target: _demo
@@ -50,3 +61,9 @@ security:
     # http://symfony.com/doc/current/cookbook/security/access_control.html
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        #- { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/app/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/app/, role: ROLE_USER }
+        #- { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/admin/, role: ROLE_ADMIN }
