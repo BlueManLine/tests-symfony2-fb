@@ -23,12 +23,16 @@ class DefaultController extends Controller
 
         $form->handleRequest($request);
 
-        if ($request->isMethod('POST') && $form->isValid()) {
-            $formData = $form->getData();
+        if ($request->isMethod('POST')) {
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($rss);
+                $em->flush();
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($rss);
-            $em->flush();
+                $this->addFlash('success', 'Record created');
+
+                return $this->redirectToRoute('dashboard');
+            }
         }
 
         return $this->render(

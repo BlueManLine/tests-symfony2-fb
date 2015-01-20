@@ -5,11 +5,13 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="rsses")
+ * @UniqueEntity(fields={"user", "url"}, message="You have the RSS in your dashboard")
  */
 class Rss
 {
@@ -21,7 +23,7 @@ class Rss
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      *
      * @Assert\NotBlank()
@@ -32,7 +34,7 @@ class Rss
      * @ORM\Column(type="string")
      *
      * @Assert\NotBlank()
-     * @Assert\Url();
+     * @Assert\Url()
      */
     private $url;
 
