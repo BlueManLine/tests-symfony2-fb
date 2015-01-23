@@ -5,15 +5,13 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="rsses")
- * @UniqueEntity(fields={"user", "url"}, message="You have the RSS in your dashboard")
+ * @ORM\Table(name="rss_comments")
  */
-class Rss
+class RssComment
 {
     /**
      * @ORM\Id
@@ -31,23 +29,19 @@ class Rss
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="RssComment", mappedBy="rss")
-     */
-    private $comments;
-
-    /**
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="Rss")
+     * @ORM\JoinColumn(name="rss_id", referencedColumnName="id")
      *
      * @Assert\NotBlank()
-     * @Assert\Url()
      */
-    private $url;
+    private $rss;
 
     /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="text")
+     *
+     * @Assert\NotBlank()
      */
-    private $updated_at;
+    private $comment;
 
     /**
      * @ORM\Column(type="datetime")
@@ -56,16 +50,8 @@ class Rss
     private $created_at;
 
 
-
-    public function __construct()
-    {
-        $this->comments = new ArrayCollection();
-    }
-
-
-
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -93,34 +79,34 @@ class Rss
     /**
      * @return mixed
      */
-    public function getComments()
+    public function getRss()
     {
-        return $this->comments;
+        return $this->rss;
     }
 
     /**
-     * @param mixed $comments
+     * @param mixed $rss
      */
-    public function setComments($comments)
+    public function setRss($rss)
     {
-        $this->comments = $comments;
+        $this->rss = $rss;
     }
 
 
     /**
      * @return mixed
      */
-    public function getUrl()
+    public function getComment()
     {
-        return $this->url;
+        return $this->comment;
     }
 
     /**
-     * @param mixed $url
+     * @param mixed $comment
      */
-    public function setUrl($url)
+    public function setComment($comment)
     {
-        $this->url = $url;
+        $this->comment = $comment;
     }
 
 
@@ -131,15 +117,5 @@ class Rss
     {
         return $this->created_at;
     }
-
-
-    /**
-     * @return mixed
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updated_at;
-    }
-
 
 }
