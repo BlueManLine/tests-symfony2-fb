@@ -92,7 +92,7 @@
                                         </div>
                                         <!-- /.panel-body -->
                                         <div class="panel-footer">
-                                            {{ form_start(formComment, {'action':path('comment_save', {'id':1})}) }}
+                                            {{ form_start(formComment, {'action':path('comment_save', {'id':rss.id})}) }}
                                             <div class="input-group">
                                                 {{ form_row(formComment.comment) }}
                                                 <span class="input-group-btn">
