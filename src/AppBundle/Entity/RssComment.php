@@ -29,7 +29,7 @@ class RssComment
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Rss")
+     * @ORM\ManyToOne(targetEntity="Rss", inversedBy="comments")
      * @ORM\JoinColumn(name="rss_id", referencedColumnName="id")
      *
      * @Assert\NotBlank()

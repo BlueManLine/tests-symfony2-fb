@@ -14,7 +14,6 @@ class DefaultController extends Controller
 {
     /**
      * @Configuration\Route("/", name="dashboard")
-     * @Configuration\Template()
      */
     public function indexAction(Request $request)
     {
@@ -41,12 +40,12 @@ class DefaultController extends Controller
         $rssComment = new RssComment();
         $formComment = $this->createForm(new RssCommentType(), $rssComment);
 
-        return [
+        return $this->render('Default/index.html.twig', [
             'form' => $form->createView(),
             'formData' => isset($formData) ? $formData : NULL,
             'formComment' => $formComment->createView(),
             'rsses' => $rsses,
-        ];
+        ]);
     }
 
     /**
