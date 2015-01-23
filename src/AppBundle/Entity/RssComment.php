@@ -3,7 +3,6 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -49,7 +48,6 @@ class RssComment
      */
     private $created_at;
 
-
     /**
      * @return int
      */
@@ -57,7 +55,6 @@ class RssComment
     {
         return $this->id;
     }
-
 
     /**
      * @return mixed
@@ -75,7 +72,6 @@ class RssComment
         $this->user = $user;
     }
 
-
     /**
      * @return mixed
      */
@@ -91,7 +87,6 @@ class RssComment
     {
         $this->rss = $rss;
     }
-
 
     /**
      * @return mixed
@@ -109,7 +104,6 @@ class RssComment
         $this->comment = $comment;
     }
 
-
     /**
      * @return mixed
      */
@@ -117,5 +111,4 @@ class RssComment
     {
         return $this->created_at;
     }
-
 }

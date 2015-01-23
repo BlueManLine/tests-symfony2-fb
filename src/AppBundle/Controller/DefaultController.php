@@ -35,14 +35,14 @@ class DefaultController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $rsses = $em->getRepository('AppBundle:Rss')->findBy(['user'=>$this->getUser()], ['created_at' => 'DESC']);
+        $rsses = $em->getRepository('AppBundle:Rss')->findBy(['user' => $this->getUser()], ['created_at' => 'DESC']);
 
         $rssComment = new RssComment();
         $formComment = $this->createForm(new RssCommentType(), $rssComment);
 
         return $this->render('Default/index.html.twig', [
             'form' => $form->createView(),
-            'formData' => isset($formData) ? $formData : NULL,
+            'formData' => isset($formData) ? $formData : null,
             'formComment' => $formComment->createView(),
             'rsses' => $rsses,
         ]);
@@ -53,7 +53,7 @@ class DefaultController extends Controller
      * @Configuration\Method("POST")
      *
      * @param Request $request
-     * @param int $id
+     * @param int     $id
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -80,5 +80,4 @@ class DefaultController extends Controller
 
         return $this->redirectToRoute('dashboard');
     }
-
 }

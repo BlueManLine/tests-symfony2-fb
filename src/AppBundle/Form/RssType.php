@@ -14,7 +14,7 @@ class RssType extends AbstractType
             ->add('url', 'text', [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'RSS URL'
+                    'placeholder' => 'RSS URL',
                 ],
             ])
         ;
@@ -22,7 +22,6 @@ class RssType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-
     }
 
     public function getName()

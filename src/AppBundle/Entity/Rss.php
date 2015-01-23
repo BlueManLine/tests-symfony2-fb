@@ -55,14 +55,10 @@ class Rss
      */
     private $created_at;
 
-
-
     public function __construct()
     {
         $this->comments = new ArrayCollection();
     }
-
-
 
     /**
      * @return mixed
@@ -71,7 +67,6 @@ class Rss
     {
         return $this->id;
     }
-
 
     /**
      * @return mixed
@@ -89,7 +84,6 @@ class Rss
         $this->user = $user;
     }
 
-
     /**
      * @return mixed
      */
@@ -105,7 +99,6 @@ class Rss
     {
         $this->comments = $comments;
     }
-
 
     /**
      * @return mixed
@@ -123,7 +116,6 @@ class Rss
         $this->url = $url;
     }
 
-
     /**
      * @return mixed
      */
@@ -132,7 +124,6 @@ class Rss
         return $this->created_at;
     }
 
-
     /**
      * @return mixed
      */
@@ -140,6 +131,4 @@ class Rss
     {
         return $this->updated_at;
     }
-
-
 }
